@@ -1,0 +1,54 @@
+<div class="container mt-4">
+    <form [formGroup]="todoForm" (ngSubmit)="saveItem()">
+      <div class="mb-3">
+        <label for="title" class="form-label">name</label>
+        <input
+          id="title"
+          type="text"
+          class="form-control"
+          formControlName="name"
+          [class.is-invalid]="todoForm.get('name')?.invalid && todoForm.get('name')?.touched"
+        />
+        <div class="invalid-feedback">Title is required</div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          class="form-control"
+          formControlName="description"
+          [class.is-invalid]="todoForm.get('description')?.invalid && todoForm.get('description')?.touched"
+        ></textarea>
+        <div class="invalid-feedback">Description is required</div>
+      </div>
+  
+     
+      <div class="mb-3">
+        <label class="form-label">DueDate </label>
+        <input type="date" formControlName="dueDate"  class="form-control"  />
+       
+    </div>
+    <div class="mb-3">
+      <label for="status" class="form-label">Status</label>
+      <select id="status" formControlName="status" class="form-select">
+        <option [ngValue]="0">ToDo</option>
+        <option [ngValue]="1">InProgress</option>
+        <option [ngValue]="2">Completed</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="priority" class="form-label">Priority</label>
+      <select id="priority" formControlName="priority" class="form-select">
+        <option [ngValue]="0">High</option>
+        <option [ngValue]="1">Medium</option>
+        <option [ngValue]="2">Low</option>
+      </select>
+    </div>
+     
+      <button type="submit" class="btn btn-primary" [disabled]="todoForm.invalid">Save</button>
+      <button class="btn btn-secondary ms-2" (click)="onCancel()">Cancel</button>
+    </form>
+
+
+    

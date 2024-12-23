@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <h2>To-Do List</h2>
+    <div>
+      <a routerLink="/add" class="btn btn-success mb-3">Add Task</a>
+    </div>
+
+    <div class="container mt-4">
+      <h2>Search Tasks</h2>
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label for="name" class="form-label">Task Name</label>
+            <input type="text" id="name" formControlName="name" class="form-control" name="name">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select id="status" formControlName="status" class="form-select" name="status">
+              <option value="">All</option>
+              <option *ngFor="let status of statuses" [value]="status.value">{{ status.key }}</option>
+            </select>
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="priority" class="form-label">Priority</label>
+            <select id="priority" formControlName="priority" class="form-select" name="priority">
+              <option value="">All</option>
+              <option *ngFor="let priority of priorities" [value]="priority.value">{{ priority.key }}</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" (click)="search()" class="btn btn-primary">Search</button>
+        <button class="btn btn-secondary ms-2" (click)="Clear()">Clear</button>
+
+      </form>
+  
+    <table class="table table-bordered" style="margin-top: 2%;">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{ item.name }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ TaskStatus[ item.status??0] }}</td>
+          <td>{{ PriorityLevel [item.priority??0] }}</td>
+          <td>
+
+            <a [routerLink]="['/edit', item.id]" class="btn btn-warning btn-sm me-2">Edit</a>
+            <button class="btn btn-danger btn-sm" (click)="deleteItem(item.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
